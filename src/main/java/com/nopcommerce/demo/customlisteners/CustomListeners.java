@@ -13,7 +13,7 @@ import org.testng.Reporter;
 
 import static com.nopcommerce.demo.utility.Utility.takeScreenShot;
 
-public class CustomerListeners implements ITestListener{
+public class CustomListeners implements ITestListener{
 
     public ExtentSparkReporter reporter;
     public ExtentReports reports;

@@ -16,7 +16,7 @@ import java.util.function.Function;
 
 public class Utility extends ManageDriver {
 
-     //*****************BASIC WEBDRIVER METHODS******************************
+    //*****************BASIC WEBDRIVER METHODS******************************
 
 
     /**
@@ -24,28 +24,33 @@ public class Utility extends ManageDriver {
      *
      * @ param by
      */
-    public void clickOnElement(By by) {
+    public void pmClickOnElement(By by) {
         WebElement loginLink = driver.findElement(by);
         loginLink.click();
     }
-    public void clickOnElement(WebElement element) {
+
+    public void pmClickOnElement(WebElement element) {
         element.click();
     }
 
     /**
      * This method will get text from element
      */
-    public String getTextFromElement(By by) {
+    public String pmGetTextFromElement(By by) {
+
         return driver.findElement(by).getText();
     }
-    public String getTextFromElement(WebElement element) {
+
+    public String pmGetTextFromElement(WebElement element) {
+
         return element.getText();
     }
+
     /**
      * This method will send text on element
      */
-    public void sendTextToElement(By by, String text) {
-        driver.findElement(by).sendKeys(text);
+    public void pmSendTextToElement(WebElement element, String text) {
+        element.sendKeys(text);
     }
 
     /**
@@ -68,7 +73,6 @@ public class Utility extends ManageDriver {
     public String doGetAttributeFromElement(By by, String attribute) {
         return driver.findElement(by).getAttribute(attribute);
     }
-
 
 
 //*************************** Alert Methods ***************************************//
@@ -275,6 +279,7 @@ public class Utility extends ManageDriver {
     }
 
 //************************** Waits Methods *********************************************//
+
     /**
      * This method will use to wait until  VisibilityOfElementLocated
      */
@@ -359,14 +364,19 @@ public class Utility extends ManageDriver {
      * @param displayMessage
      */
 
-    public void doVerifyElements(String expectedMessage, By by, String displayMessage) {
-        Assert.assertEquals(expectedMessage, by, displayMessage);
+    public void pmVerifyElements(String expectedMessage, By by, String displayMessage) {
+        Assert.assertEquals(by, expectedMessage, displayMessage);
+    }
+
+    public void pmVerifyElements(String expectedMessage, WebElement element, String displayMessage) {
+        Assert.assertEquals(element,expectedMessage, displayMessage);
     }
 
     /**
      * This method is getting text from actual Message's WebElement using
      * the Explicit Wait Method. We will then use this as String actualMessage in Verification Method
      * We have used "waitUntilVisibilityOfElementLocated" Explicit Wait Method here
+     *
      * @param actualMessage
      * @param timeout
      * @return
@@ -383,6 +393,7 @@ public class Utility extends ManageDriver {
      * 1. Get Expected - can also use the "waitUntilTitleIsEqualTo" explicit wait method.
      * 2. Get Acutal = By getting text from actual element using "waitUntilVisibilityOfElement" method
      * 3. All this incorporated in the Assert Method
+     *
      * @param expectedMessage
      * @param theActualMessage
      * @param timeForWait
@@ -421,7 +432,8 @@ public class Utility extends ManageDriver {
     }
 
     /**
-     *THIS METHOD SORTS ELEMENTS IN THE ORDER OF PRICE HIGH TO LOW
+     * THIS METHOD SORTS ELEMENTS IN THE ORDER OF PRICE HIGH TO LOW
+     *
      * @throws InterruptedException
      */
 
@@ -452,6 +464,7 @@ public class Utility extends ManageDriver {
 
     /**
      * THIS METHOD SORTS ELEMENTS IN THE ORDER OF STAR RATINGS HIGH TO LOW
+     *
      * @param beforeFilterElements
      * @param dropDown
      * @param hToLow
@@ -462,27 +475,28 @@ public class Utility extends ManageDriver {
         List<WebElement> originalList = driver.findElements(beforeFilterElements);
 
         List<Integer> originalProductRating = new ArrayList<>();
-        for (WebElement rating :originalList) {
+        for (WebElement rating : originalList) {
             originalProductRating.add(rating.getAttribute("style").indexOf(3, 6));
         }
 
-        Collections.sort(originalProductRating,Collections.reverseOrder());
+        Collections.sort(originalProductRating, Collections.reverseOrder());
         doMouseHoverNoClick(dropDown);
         doMouseHoverAndClick(hToLow);
         Thread.sleep(3000);
         List<WebElement> afterSortingList = driver.findElements(beforeFilterElements);
         List<Integer> afterSortingProductRating = new ArrayList<>();
-        for (WebElement rating1 :afterSortingList){
+        for (WebElement rating1 : afterSortingList) {
             afterSortingProductRating.add(rating1.getAttribute("style").indexOf(2, 6));
         }
         System.out.println(afterSortingProductRating);
-        Assert.assertEquals(originalProductRating,afterSortingProductRating,"products are not sorted");
+        Assert.assertEquals(originalProductRating, afterSortingProductRating, "products are not sorted");
 
     }
 
 
     /**
      * THIS METHOD VERIFIES IF ELEMENTS ARE SORTED FROM BY TITLES FROM A TO Z
+     *
      * @param beforeFilterElements
      * @param dropDown
      * @param aToZ
@@ -512,6 +526,7 @@ public class Utility extends ManageDriver {
 
     /**
      * THIS METHOD VERIFIES IF ELEMENTS ARE SORTED FROM BY TITLES FROM Z TO A
+     *
      * @throws InterruptedException
      */
 
@@ -539,8 +554,6 @@ public class Utility extends ManageDriver {
         Assert.assertEquals(originalProductNameList, afterSortingProductName, "products are now sorted");
 
     }
-
-
 
 
 }
