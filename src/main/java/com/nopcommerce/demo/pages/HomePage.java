@@ -13,7 +13,7 @@ public class HomePage extends Utility {
     @FindBy(xpath = "//a[normalize-space()='Log in']")
     WebElement loginLink;
 
-    @FindBy(xpath = "//a[normalize-space()='Register']")
+    @FindBy(xpath = "//a[contains(text(),'Register')]")
     WebElement registerLink;
 
     @FindBy(xpath = "//img[@alt='nopCommerce demo store']")
@@ -31,5 +31,10 @@ public class HomePage extends Utility {
 
     public void clickOnLogInLink(){
         pmClickOnElement(loginLink);
+    }
+
+    public void clickOnRegisterLink(){
+
+        pmClickOnElement(registerLink);
     }
 }

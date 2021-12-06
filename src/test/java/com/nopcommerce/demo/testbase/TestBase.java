@@ -15,6 +15,6 @@ public class TestBase extends Utility {
 
     @AfterMethod
     public void tearDown(){
-        closeBrowser();
+        //closeBrowser();
     }
 }

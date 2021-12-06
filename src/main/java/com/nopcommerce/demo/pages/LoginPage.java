@@ -22,6 +22,20 @@ public class LoginPage extends Utility {
     @FindBy(xpath = "//h1[normalize-space()='Welcome, Please Sign In!']")
     WebElement welComeText;
 
+    @FindBy(xpath = "//div[@class='message-error validation-summary-errors']")
+    WebElement errorMessage;
+
+    @FindBy(xpath = "//a[normalize-space()='Log out']")
+    WebElement logOutOption;
+
+    @FindBy(xpath = "//a[normalize-space()='Log out']")
+    WebElement logOutButton;
+
+    @FindBy(xpath = "//a[normalize-space()='Log in']")
+    WebElement loginOption;
+
+
+
     public LoginPage() {
         PageFactory.initElements(driver, this);
     }
@@ -30,7 +44,7 @@ public class LoginPage extends Utility {
         Reporter.log("verifying the welcome message : " + welComeText.toString() + "<br>");
     String expectedMessage = "Welcome, Please Sign In!";
     String actualMessage = pmGetTextFromElement(welComeText);
-        Assert.assertEquals("Welcome, Please Sign In!",actualMessage,"wrong page");
+        Assert.assertEquals(actualMessage,"Welcome, Please Sign In!","wrong page");
 
     //pmVerifyElements(welComeText,"Welcome, Please Sign In!","wrong page");
 }
@@ -50,6 +64,34 @@ public class LoginPage extends Utility {
         Reporter.log("Clicking the login button : " + logInButton.toString() + "<br>");
         pmClickOnElement(logInButton);
     }
+
+    public void verifyErrorMessage(){
+
+        String expectedErrorMessage = "Login was unsuccessful. Please correct the errors and try again.\n"
+                + "No customer account found";
+        String actualErrorMessage = pmGetTextFromElement(errorMessage);
+        Assert.assertEquals( expectedErrorMessage, actualErrorMessage,"Error message not displayed");
+    }
+
+    public void verifyLogOutOption() {
+        Reporter.log("verifying the Log out Option: " + logOutOption.toString() + "<br>");
+        pmVerifyElements(logOutOption, "Log out", "wrong option");
+
+    }
+
+    public void clickOnLogOutButton() {
+        Reporter.log("Clicking on Log out Button " + logOutButton.toString() + "<br>");
+        pmClickOnElement(logOutButton);
+    }
+
+    public void verifyLoginOption() {
+        Reporter.log("verifying the Log in Option: " + loginOption.toString() + "<br>");
+        pmVerifyElements(loginOption, "Log in", "wrong option");
+
+    }
+
+
+
 
 
 }

@@ -6,7 +6,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -130,6 +129,11 @@ public class Utility extends ManageDriver {
     public void selectByValueFromDropDown(By by, String value) {
         new Select(driver.findElement(by)).selectByValue(value);
     }
+
+    public void pmSelectByValueFromDropDown(WebElement webElement, String value) {
+        new Select(webElement).selectByValue(value);
+    }
+
 
     /**
      * This method will select the option by index
@@ -283,11 +287,12 @@ public class Utility extends ManageDriver {
     /**
      * This method will use to wait until  VisibilityOfElementLocated
      */
-    public WebElement doWaitUntilVisibilityOfElementLocated(By by, int timeout) {
+    public WebElement pmDoWaitUntilVisibilityOfElementLocated(By by, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         return driver.findElement(by);
     }
+
 
     public String doWaitUntilTitleIsEqualTo(String expectedMessage) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
@@ -368,8 +373,9 @@ public class Utility extends ManageDriver {
         Assert.assertEquals(by, expectedMessage, displayMessage);
     }
 
-    public void pmVerifyElements(String expectedMessage, WebElement element, String displayMessage) {
-        Assert.assertEquals(element,expectedMessage, displayMessage);
+    public void pmVerifyElements( WebElement element,String expectedMessage, String displayMessage) {
+        String actualMessage = pmGetTextFromElement(element);
+        Assert.assertEquals(actualMessage, expectedMessage, displayMessage);
     }
 
     /**
@@ -383,7 +389,7 @@ public class Utility extends ManageDriver {
      */
 
     public String doGetTextFromActualMessageForVerificationUsingWait(By actualMessage, int timeout) {
-        String verify = doWaitUntilVisibilityOfElementLocated(actualMessage, timeout).getText();
+        String verify = pmDoWaitUntilVisibilityOfElementLocated(actualMessage, timeout).getText();
         return verify;
     }
 
